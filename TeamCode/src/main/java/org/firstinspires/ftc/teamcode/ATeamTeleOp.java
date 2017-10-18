@@ -45,9 +45,6 @@ public class ATeamTeleOp extends LinearOpMode {
         telemetry.addLine("Initialization Complete");
         telemetry.update();
 
-        gripServo1.setPosition(.27);
-        gripServo2.setPosition(.27);
-
         waitForStart();
         telemetry.clearAll();
         runtime.reset();
@@ -57,11 +54,11 @@ public class ATeamTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
             if (gamepad1.x) {
-                liftMotor.setPower(.5);
+                liftMotor.setPower(.4);
             }
 
             if (gamepad1.y) {
-                liftMotor.setPower(-.5);
+                liftMotor.setPower(-.4);
             }
 
             if (gamepad1.right_bumper) {
@@ -75,8 +72,8 @@ public class ATeamTeleOp extends LinearOpMode {
             }
             if (gamepad1.a) { //closes gripper
 
-                gripServo1.setPosition(.85);
-                gripServo2.setPosition(.125);
+                gripServo1.setPosition(.75);
+                gripServo2.setPosition(.1);
             }
 
             motorFrontRight.setPower(-gamepad1.right_stick_y * 1.1);
