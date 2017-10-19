@@ -21,6 +21,8 @@ public class ATeamTeleOp extends LinearOpMode {
     public DcMotor motorBackRight = null;
     public DcMotor liftMotor;
     public Servo gripServo1 = null; // left servo
+                                                                                                                            /* SHAin work on how to make lift motor go while button is pressed. Ask JOSEF for help
+                                                                                                                            - collin */
     public Servo gripServo2 = null; // right servo
 
     @Override
@@ -54,11 +56,11 @@ public class ATeamTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
             if (gamepad1.x) {
-                liftMotor.setPower(.4);
+                liftMotor.setPower(.40);
             }
 
             if (gamepad1.y) {
-                liftMotor.setPower(-.4);
+                liftMotor.setPower(-.40);
             }
 
             if (gamepad1.right_bumper) {
@@ -73,7 +75,7 @@ public class ATeamTeleOp extends LinearOpMode {
             if (gamepad1.a) { //closes gripper
 
                 gripServo1.setPosition(.75);
-                gripServo2.setPosition(.1);
+                gripServo2.setPosition(.175);
             }
 
             motorFrontRight.setPower(-gamepad1.right_stick_y * 1.1);
