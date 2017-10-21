@@ -21,6 +21,7 @@ public class ATeamTeleOp extends LinearOpMode {
     public DcMotor motorBackRight = null;
     public DcMotor liftMotor;
     public Servo gripServo1 = null; // left servo
+    public TouchSensor limitSwitch = null;
                                                                                                                             /* SHAin work on how to make lift motor go while button is pressed. Ask JOSEF for help
                                                                                                                             - collin */
     public Servo gripServo2 = null; // right servo
@@ -32,6 +33,8 @@ public class ATeamTeleOp extends LinearOpMode {
 
         gripServo1 = hardwareMap.get(Servo.class, "gripServo1");
         gripServo2 = hardwareMap.get(Servo.class, "gripServo2");
+
+        limitSwitch = hardwareMap.get(TouchSensor.class, "limitSwitch");
 
         liftMotor = hardwareMap.get(DcMotor.class, "liftMotor");
         motorFrontLeft = hardwareMap.get(DcMotor.class, "leftDrive1");
@@ -59,11 +62,11 @@ public class ATeamTeleOp extends LinearOpMode {
                 liftMotor.setPower(.40);
             }
 
-            if (gamepad1.y) {
+            else if (gamepad1.y && (!limitSwitch.isPressed())) {
                 liftMotor.setPower(-.40);
             }
 
-            if (gamepad1.right_bumper) {
+            else  {
                 liftMotor.setPower(0);
             }
 
@@ -72,10 +75,10 @@ public class ATeamTeleOp extends LinearOpMode {
                 gripServo1.setPosition(.47);
                 gripServo2.setPosition(.47);
             }
-            if (gamepad1.a) { //closes gripper
+            else if (gamepad1.a) { //closes gripper
 
-                gripServo1.setPosition(.75);
-                gripServo2.setPosition(.175);
+                gripServo1.setPosition(.9);
+                gripServo2.setPosition(.05);
             }
 
             motorFrontRight.setPower(-gamepad1.right_stick_y * 1.1);

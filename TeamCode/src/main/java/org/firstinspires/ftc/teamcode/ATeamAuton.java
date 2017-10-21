@@ -13,9 +13,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class ATeamAuton extends LinearOpMode {
 
 
-    public static final double COUNTS_PER_MOTOR_REV1 = 1220;
+    public static final double COUNTS_PER_MOTOR_REV1 = 7;//1220;
     //public static final double COUNTS_PER_MOTOR_REV2 = 560;
-    public static final double DRIVE_GEAR_REDUCTION = 1.0;
+    public static final double DRIVE_GEAR_REDUCTION = 40;//1.0;
     public static final double WHEEL_DIAMETER_INCHES = 4.0;
     public static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV1 * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
     //public static final double COUNTS_PER_INCH2 = (COUNTS_PER_MOTOR_REV1 * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
@@ -26,9 +26,18 @@ public class ATeamAuton extends LinearOpMode {
     public DcMotor leftDrive2 = null;
     public DcMotor rightDrive1 = null;
     public DcMotor rightDrive2 = null;
-
+    public Servo JewelKnock = null;
+    public int JewelDirection;
+    public int Forward = 1;
+    public int Backward = -1;
     public int error = 0;
     public int kp = 1;
+
+    //Variables that change
+    public int JewelNudgeDistance = 4;
+    public double ArmUpPos = .9;
+    public double ArmDownPos = .45;
+
 
     @Override
     public void runOpMode() {
@@ -37,6 +46,8 @@ public class ATeamAuton extends LinearOpMode {
         rightDrive1 = hardwareMap.get(DcMotor.class, "rightDrive1");
         leftDrive2  = hardwareMap.get(DcMotor.class, "leftDrive2");
         rightDrive2 = hardwareMap.get(DcMotor.class, "rightDrive2");
+
+        JewelKnock = hardwareMap.get (Servo.class, "jewelKnock");
 
         leftDrive1.setDirection(DcMotor.Direction.REVERSE);
         rightDrive1.setDirection(DcMotor.Direction.FORWARD);
@@ -61,8 +72,9 @@ public class ATeamAuton extends LinearOpMode {
 
         waitForStart();
 
-        encoderDrive(DRIVE_SPEED, 24, 24,3);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
-        encoderDrive(DRIVE_SPEED, 24, -24, 3);
+        //encoderDrive(DRIVE_SPEED, 18, 18, 1);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
+        KnockJewel();
+        DriveToBox();
     }
 
     public void encoderDrive(double speed, double leftInches, double rightInches, double timeoutS) {
@@ -94,7 +106,7 @@ public class ATeamAuton extends LinearOpMode {
             leftDrive2.setPower(speed);
             rightDrive2.setPower(speed);
 
-            while (opModeIsActive() && (runtime.seconds() < timeoutS) && (leftDrive1.isBusy() && rightDrive1.isBusy()) && (leftDrive2.isBusy() && rightDrive2.isBusy())) {
+            while (opModeIsActive() && (runtime.seconds() < timeoutS) && (leftDrive1.isBusy() && rightDrive1.isBusy() && (leftDrive2.isBusy() && rightDrive2.isBusy()))) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d : %7d :%7d", newLeftTarget1,  newRightTarget1, newLeftTarget2, newRightTarget2);
@@ -114,7 +126,29 @@ public class ATeamAuton extends LinearOpMode {
 
         }
     }
-    public void jewelFinder() {
-
+    public void DriveToBox() {
+        encoderDrive(DRIVE_SPEED, 18, 18, 1);
     }
+
+    public void KnockJewel() {
+        SetArm(ArmDownPos);
+        JewelDirection = DecideFB();
+        MoveFB(JewelDirection, JewelNudgeDistance); // distance travelled to knowk off ball
+        SetArm(ArmUpPos);
+    }
+
+    public void SetArm(double ArmPos) {
+        JewelKnock.setPosition(ArmPos);
+    }
+
+    public int DecideFB() {
+        //Assume Forward for now
+        return Forward;
+    }
+
+    public void MoveFB(int Direction, int Distance) {
+
+        encoderDrive(DRIVE_SPEED, Distance * Direction, Distance * Direction, 1);
+    }
+
 }
