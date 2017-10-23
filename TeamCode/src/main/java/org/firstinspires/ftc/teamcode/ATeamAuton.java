@@ -34,9 +34,14 @@ public class ATeamAuton extends LinearOpMode {
     public int kp = 1;
 
     //Variables that change
-    public int JewelNudgeDistance = 4;
+    public double JewelNudgeDistance = 4;
     public double ArmUpPos = .9;
     public double ArmDownPos = .45;
+    public int StartRed = 1;
+    public int StartBlue = -1;
+    public int StartSide = StartRed;
+    public double DistanceToBox = 33;
+    public int MoveTimeout = 4;
 
 
     @Override
@@ -127,17 +132,19 @@ public class ATeamAuton extends LinearOpMode {
         }
     }
     public void DriveToBox() {
-        encoderDrive(DRIVE_SPEED, 18, 18, 1);
+
+        MoveFB(StartSide, DistanceToBox - (JewelNudgeDistance * StartSide)); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
     }
 
     public void KnockJewel() {
         SetArm(ArmDownPos);
         JewelDirection = DecideFB();
-        MoveFB(JewelDirection, JewelNudgeDistance); // distance travelled to knowk off ball
+        MoveFB(JewelDirection, JewelNudgeDistance); // distance travelled to knock off ball
         SetArm(ArmUpPos);
     }
 
     public void SetArm(double ArmPos) {
+
         JewelKnock.setPosition(ArmPos);
     }
 
@@ -146,9 +153,9 @@ public class ATeamAuton extends LinearOpMode {
         return Forward;
     }
 
-    public void MoveFB(int Direction, int Distance) {
+    public void MoveFB(int Direction, double Distance) {
 
-        encoderDrive(DRIVE_SPEED, Distance * Direction, Distance * Direction, 1);
+        encoderDrive(DRIVE_SPEED, Distance * Direction, Distance * Direction, MoveTimeout);
     }
 
 }
