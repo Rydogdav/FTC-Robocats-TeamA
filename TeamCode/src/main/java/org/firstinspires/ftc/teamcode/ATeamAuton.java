@@ -30,8 +30,8 @@ public class ATeamAuton extends LinearOpMode {
     public int JewelDirection;
     public int Forward = 1;
     public int Backward = -1;
-    public int error = 0;
-    public int kp = 1;
+    //public int error = 0;
+    //public int kp = 1;
 
     //Variables that change
     public double JewelNudgeDistance = 4;
@@ -153,7 +153,7 @@ public class ATeamAuton extends LinearOpMode {
         return Forward;
     }
 
-    public void MoveFB(int Direction, double Distance) {
+    public void MoveFB(double Direction, double Distance) {
 
         encoderDrive(DRIVE_SPEED, Distance * Direction, Distance * Direction, MoveTimeout);
     }
