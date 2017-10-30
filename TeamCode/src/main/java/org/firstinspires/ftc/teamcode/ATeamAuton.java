@@ -13,11 +13,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class ATeamAuton extends LinearOpMode {
 
 
-    public static final double COUNTS_PER_MOTOR_REV1 = 7;//1220;
+    public static final double COUNTS_PER_MOTOR_REV1 = 512;
     //public static final double COUNTS_PER_MOTOR_REV2 = 560;
-    public static final double DRIVE_GEAR_REDUCTION = 40;//1.0;
+    //public static final double DRIVE_GEAR_REDUCTION = 40;//1.0;
     public static final double WHEEL_DIAMETER_INCHES = 4.0;
-    public static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV1 * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
+    public static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV1 / (WHEEL_DIAMETER_INCHES * Math.PI));
     //public static final double COUNTS_PER_INCH2 = (COUNTS_PER_MOTOR_REV1 * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
     public static final double DRIVE_SPEED = 0.5;
     public static final double TURN_SPEED = 0.5;
@@ -35,13 +35,13 @@ public class ATeamAuton extends LinearOpMode {
 
     //Variables that change
     public double JewelNudgeDistance = 4;
-    public double ArmUpPos = .9;
-    public double ArmDownPos = .45;
+    public double ArmUpPos = .5;
+    public double ArmDownPos = 0;
     public int StartRed = 1;
     public int StartBlue = -1;
     public int StartSide = StartRed;
     public double DistanceToBox = 33;
-    public int MoveTimeout = 4;
+    public int MoveTimeout = 10;
 
 
     @Override
@@ -138,9 +138,12 @@ public class ATeamAuton extends LinearOpMode {
 
     public void KnockJewel() {
         SetArm(ArmDownPos);
+        sleep(500);
         JewelDirection = DecideFB();
         MoveFB(JewelDirection, JewelNudgeDistance); // distance travelled to knock off ball
+        sleep(500);
         SetArm(ArmUpPos);
+        sleep(500);
     }
 
     public void SetArm(double ArmPos) {
