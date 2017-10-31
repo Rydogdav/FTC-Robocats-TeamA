@@ -23,9 +23,6 @@ public class ATeamTeleOp extends LinearOpMode {
     public Servo gripServo1 = null; // left servo
     public Servo gripServo2 = null; // right servo
     public TouchSensor limitSwitch = null;
-                                                                                                                            /* SHAin work on how to make lift motor go while button is pressed. Ask JOSEF for help
-                                                                                                                            - collin */
-
 
     @Override
     public void runOpMode() { // this is still not working
@@ -61,13 +58,9 @@ public class ATeamTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             if (gamepad1.x) {
                 liftMotor.setPower(.65);
-            }
-
-            else if (gamepad1.y && (!limitSwitch.isPressed())) {
+            } else if (gamepad1.y && (!limitSwitch.isPressed())) {
                 liftMotor.setPower(-.35);
-            }
-
-            else  {
+            } else {
                 liftMotor.setPower(0);
             }
 
@@ -75,37 +68,37 @@ public class ATeamTeleOp extends LinearOpMode {
 
                 gripServo1.setPosition(.47);
                 gripServo2.setPosition(.47);
-            }
-            else if (gamepad1.a) { //closes gripper
+            } else if (gamepad1.a) { //closes gripper
 
                 gripServo1.setPosition(.9);
                 gripServo2.setPosition(.05);
             }
-
+            /*
             motorFrontRight.setPower(-gamepad1.right_stick_y * 1.1);
             motorBackRight.setPower(-gamepad1.right_stick_y * 1.1);
             motorFrontLeft.setPower(-gamepad1.left_stick_y * 1.1);
             motorBackLeft.setPower(-gamepad1.left_stick_y* 1.1);
-        }
-
-
-
-            /*
-            Close grippers onto glyph.
-            Lift up glyph.
-            Place glyph on top of another glyph.
-            Open and lower gripper.
-            Close and grip both glyphs.
-            Lift both glyphs.
-            Drive to CryptoBox.
-            Open gripper and drop off glyphs into CryptoBox.
             */
+
+            double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
+            double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
+            double rightX = gamepad1.right_stick_x;
+            final double v1 = r * Math.cos(robotAngle) + rightX;
+            final double v2 = r * Math.sin(robotAngle) - rightX;
+            final double v3 = r * Math.sin(robotAngle) + rightX;
+            final double v4 = r * Math.cos(robotAngle) - rightX;
+
+            motorFrontRight.setPower(v1);
+            motorBackRight.setPower(v2);
+            motorFrontLeft.setPower(v3)
+            motorBackLeft.setPower(v4);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", gamepad1.left_stick_y, gamepad1.right_stick_y);
             telemetry.update();
 
-        idle();
-        requestOpModeStop();
+            idle();
+            requestOpModeStop();
+        }
     }
 }

@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class ATeamAuton extends LinearOpMode {
 
 
-    public static final double COUNTS_PER_MOTOR_REV1 = 512;
+    public static final double COUNTS_PER_MOTOR_REV1 = 1024;
     //public static final double COUNTS_PER_MOTOR_REV2 = 560;
     //public static final double DRIVE_GEAR_REDUCTION = 40;//1.0;
     public static final double WHEEL_DIAMETER_INCHES = 4.0;
@@ -35,12 +35,12 @@ public class ATeamAuton extends LinearOpMode {
 
     //Variables that change
     public double JewelNudgeDistance = 4;
-    public double ArmUpPos = .5;
+    public double ArmUpPos = .75;
     public double ArmDownPos = 0;
     public int StartRed = 1;
     public int StartBlue = -1;
     public int StartSide = StartRed;
-    public double DistanceToBox = 33;
+    public double DistanceToBox = 40;
     public int MoveTimeout = 10;
 
 
