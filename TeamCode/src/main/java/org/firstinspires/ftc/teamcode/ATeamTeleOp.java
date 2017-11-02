@@ -25,7 +25,7 @@ public class ATeamTeleOp extends LinearOpMode {
     public TouchSensor limitSwitch = null;
 
     @Override
-    public void runOpMode() { // this is still not working
+    public void runOpMode() {
         telemetry.addLine("Initializing");
         telemetry.update();
 
@@ -90,7 +90,7 @@ public class ATeamTeleOp extends LinearOpMode {
 
             motorFrontRight.setPower(v1);
             motorBackRight.setPower(v2);
-            motorFrontLeft.setPower(v3)
+            motorFrontLeft.setPower(v3);
             motorBackLeft.setPower(v4);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
