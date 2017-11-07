@@ -58,9 +58,9 @@ public class ATeamTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
             if (gamepad1.x) {
-                liftMotor.setPower(.65);
+                liftMotor.setPower(1);
             } else if (gamepad1.y && (!limitSwitch.isPressed())) {
-                liftMotor.setPower(-.35);
+                liftMotor.setPower(-.5);
             } else {
                 liftMotor.setPower(0);
             }
@@ -77,7 +77,7 @@ public class ATeamTeleOp extends LinearOpMode {
 
             if (gamepad1.left_bumper){
 
-                gearMultiplier = .5;
+                gearMultiplier = .2;
             }
 
             if (gamepad1.right_bumper) {
