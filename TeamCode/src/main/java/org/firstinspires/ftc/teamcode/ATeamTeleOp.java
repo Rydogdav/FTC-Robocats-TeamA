@@ -23,6 +23,7 @@ public class ATeamTeleOp extends LinearOpMode {
     public Servo gripServo1 = null; // left servo
     public Servo gripServo2 = null; // right servo
     public TouchSensor limitSwitch = null;
+    public double gearMultiplier = 1.1;
 
     @Override
     public void runOpMode() {
@@ -73,32 +74,28 @@ public class ATeamTeleOp extends LinearOpMode {
                 gripServo1.setPosition(.9);
                 gripServo2.setPosition(.05);
             }
-            /*
-            motorFrontRight.setPower(-gamepad1.right_stick_y * 1.1);
-            motorBackRight.setPower(-gamepad1.right_stick_y * 1.1);
-            motorFrontLeft.setPower(-gamepad1.left_stick_y * 1.1);
-            motorBackLeft.setPower(-gamepad1.left_stick_y* 1.1);
-            */
 
-            double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
-            double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
-            double rightX = gamepad1.right_stick_x;
-            final double v1 = r * Math.cos(robotAngle) + rightX;
-            final double v2 = r * Math.sin(robotAngle) - rightX;
-            final double v3 = r * Math.sin(robotAngle) + rightX;
-            final double v4 = r * Math.cos(robotAngle) - rightX;
+            if (gamepad1.left_bumper){
 
-            motorFrontRight.setPower(v1);
-            motorBackRight.setPower(v2);
-            motorFrontLeft.setPower(v3);
-            motorBackLeft.setPower(v4);
+                gearMultiplier = .5;
+            }
+
+            if (gamepad1.right_bumper) {
+
+                gearMultiplier = 1.1;
+            }
+            
+            motorFrontRight.setPower(-gamepad1.right_stick_y * gearMultiplier);
+            motorBackRight.setPower(-gamepad1.right_stick_y * gearMultiplier);
+            motorFrontLeft.setPower(-gamepad1.left_stick_y * gearMultiplier);
+            motorBackLeft.setPower(-gamepad1.left_stick_y * gearMultiplier);
+            
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", gamepad1.left_stick_y, gamepad1.right_stick_y);
             telemetry.update();
 
             idle();
-            requestOpModeStop();
         }
     }
 }
