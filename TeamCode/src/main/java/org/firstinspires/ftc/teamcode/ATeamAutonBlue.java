@@ -30,16 +30,13 @@ public class ATeamAutonBlue extends LinearOpMode {
     public int JewelDirection;
     public int Forward = 1;
     public int Backward = -1;
-    //public int error = 0;
-    //public int kp = 1;
 
     //Variables that change
     public double JewelNudgeDistance = 4;
     public double ArmUpPos = .75;
     public double ArmDownPos = 0;
-    public int StartRed = 1;
     public int StartBlue = -1;
-    public double DistanceToBox = 40;
+    public double DistanceToBox = 35;
     public int MoveTimeout = 10;
 
 
@@ -78,7 +75,6 @@ public class ATeamAutonBlue extends LinearOpMode {
 
         waitForStart();
 
-        //encoderDrive(DRIVE_SPEED, 18, 18, 1);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
         colorSensor.enableLed(true);
         KnockJewel();
         colorSensor.enableLed(false);

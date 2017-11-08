@@ -38,7 +38,6 @@ public class ATeamAutonRed extends LinearOpMode {
     public double ArmUpPos = .75;
     public double ArmDownPos = 0;
     public int StartRed = 1;
-    public int StartBlue = -1;
     public double DistanceToBox = 40;
     public int MoveTimeout = 10;
 
