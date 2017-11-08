@@ -9,9 +9,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous (name="Auton Alpha 1.0", group="Autonomous")
-public class ATeamAuton extends LinearOpMode {
-
+@Autonomous (name="Auton Blue", group="Autonomous")
+public class ATeamAutonBlue extends LinearOpMode {
 
     public static final double COUNTS_PER_MOTOR_REV1 = 1024;
     //public static final double COUNTS_PER_MOTOR_REV2 = 560;
@@ -27,6 +26,7 @@ public class ATeamAuton extends LinearOpMode {
     public DcMotor rightDrive1 = null;
     public DcMotor rightDrive2 = null;
     public Servo JewelKnock = null;
+    public ColorSensor colorSensor = null;
     public int JewelDirection;
     public int Forward = 1;
     public int Backward = -1;
@@ -39,7 +39,6 @@ public class ATeamAuton extends LinearOpMode {
     public double ArmDownPos = 0;
     public int StartRed = 1;
     public int StartBlue = -1;
-    public int StartSide = StartRed;
     public double DistanceToBox = 40;
     public int MoveTimeout = 10;
 
@@ -53,6 +52,8 @@ public class ATeamAuton extends LinearOpMode {
         rightDrive2 = hardwareMap.get(DcMotor.class, "rightDrive2");
 
         JewelKnock = hardwareMap.get (Servo.class, "jewelKnock");
+
+        colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor");
 
         leftDrive1.setDirection(DcMotor.Direction.REVERSE);
         rightDrive1.setDirection(DcMotor.Direction.FORWARD);
@@ -78,7 +79,9 @@ public class ATeamAuton extends LinearOpMode {
         waitForStart();
 
         //encoderDrive(DRIVE_SPEED, 18, 18, 1);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
+        colorSensor.enableLed(true);
         KnockJewel();
+        colorSensor.enableLed(false);
         DriveToBox();
     }
 
@@ -133,17 +136,18 @@ public class ATeamAuton extends LinearOpMode {
     }
     public void DriveToBox() {
 
-        MoveFB(StartSide, DistanceToBox - (JewelNudgeDistance * StartSide)); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
+        MoveFB(StartBlue, DistanceToBox - (JewelNudgeDistance * StartBlue)); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
     }
 
     public void KnockJewel() {
         SetArm(ArmDownPos);
-        sleep(500);
+        sleep(1000);
         JewelDirection = DecideFB();
+        sleep(1500);
         MoveFB(JewelDirection, JewelNudgeDistance); // distance travelled to knock off ball
-        sleep(500);
+        sleep(1000);
         SetArm(ArmUpPos);
-        sleep(500);
+        sleep(1000);
     }
 
     public void SetArm(double ArmPos) {
@@ -152,8 +156,10 @@ public class ATeamAuton extends LinearOpMode {
     }
 
     public int DecideFB() {
-        //Assume Forward for now
-        return Forward;
+        if (colorSensor.blue() < colorSensor.red())
+            return Backward;
+        else
+            return Forward;
     }
 
     public void MoveFB(double Direction, double Distance) {

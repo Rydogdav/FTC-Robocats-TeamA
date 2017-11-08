@@ -42,16 +42,6 @@ public class ColorSenorTest extends LinearOpMode {
            telemetry.addData("Green Value", colorSensor.green());
            telemetry.update();
 
-           if (colorSensor.red() > 5){
-               telemetry.addLine("Red is good");
-               telemetry.update();
-           }
-
-           if (colorSensor.blue() > 5){
-               telemetry.addLine("Blue is good");
-               telemetry.update();
-           }
-
            idle();
        }
     }
