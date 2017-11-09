@@ -23,9 +23,10 @@ public class ATeamTeleOp extends LinearOpMode {
     public Servo gripServo1 = null; // left servo
     public Servo gripServo2 = null; // right servo
     public Servo JewelKnock = null;
+    public Servo relicServo = null;
     public TouchSensor limitSwitch = null;
     public double gearMultiplier = 1.1;
-    public double ArmUpPos = .75;
+    public double ArmUpPos = 1;
     public double ArmDownPos = 0;
 
 
@@ -36,7 +37,8 @@ public class ATeamTeleOp extends LinearOpMode {
 
         gripServo1 = hardwareMap.get(Servo.class, "gripServo1");
         gripServo2 = hardwareMap.get(Servo.class, "gripServo2");
-        JewelKnock = hardwareMap.get (Servo.class, "jewelKnock");
+        JewelKnock = hardwareMap.get(Servo.class, "jewelKnock");
+        relicServo = hardwareMap.get(Servo.class, "relicServo");
 
         limitSwitch = hardwareMap.get(TouchSensor.class, "limitSwitch");
 
@@ -71,6 +73,16 @@ public class ATeamTeleOp extends LinearOpMode {
                 liftMotor.setPower(0);
             }
 
+            if (gamepad1.right_trigger > 0) {
+
+                relicServo.setPosition(0);
+            }
+
+            if (gamepad1.left_trigger > 0) {
+
+                relicServo.setPosition(1);
+            }
+
             if (gamepad1.b) { //opens gripper
 
                 gripServo1.setPosition(.47);
@@ -79,16 +91,6 @@ public class ATeamTeleOp extends LinearOpMode {
 
                 gripServo1.setPosition(.9);
                 gripServo2.setPosition(.05);
-            }
-
-            if (gamepad1.right_trigger > 0){
-
-                JewelKnock.setPosition(ArmUpPos);
-            }
-
-            if (gamepad1.left_trigger > 0){
-
-                JewelKnock.setPosition(ArmDownPos);
             }
 
             if (gamepad1.left_bumper){

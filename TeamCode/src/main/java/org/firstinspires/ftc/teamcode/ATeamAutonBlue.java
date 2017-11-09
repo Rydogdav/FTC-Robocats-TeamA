@@ -33,7 +33,7 @@ public class ATeamAutonBlue extends LinearOpMode {
 
     //Variables that change
     public double JewelNudgeDistance = 4;
-    public double ArmUpPos = .75;
+    public double ArmUpPos = 1;
     public double ArmDownPos = 0;
     public int StartBlue = -1;
     public double DistanceToBox = 35;
@@ -152,10 +152,16 @@ public class ATeamAutonBlue extends LinearOpMode {
     }
 
     public int DecideFB() {
-        if (colorSensor.blue() < colorSensor.red())
+        if (colorSensor.blue() < colorSensor.red()) {
+            telemetry.addLine("Blue Backward");
+            telemetry.update();
             return Backward;
-        else
+        }else if (colorSensor.blue() > colorSensor.red()) {
+            telemetry.addLine("Blue Forward");
+            telemetry.update();
             return Forward;
+        }else
+            return 0;
     }
 
     public void MoveFB(double Direction, double Distance) {
