@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous (name="Auton Blue", group="Autonomous")
-public class ATeamAutonBlue extends LinearOpMode {
+@Autonomous (name="Auton Blue Relic Side", group="Autonomous")
+public class ATeamAutonBlueRSide extends LinearOpMode {
 
     public static final double COUNTS_PER_MOTOR_REV1 = 1024;
     //public static final double COUNTS_PER_MOTOR_REV2 = 560;

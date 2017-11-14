@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous (name="Auton Red", group="Autonomous")
-public class ATeamAutonRed extends LinearOpMode {
+@Autonomous (name="Auton Red Glyph Side", group="Autonomous")
+public class ATeamAutonRedGSide extends LinearOpMode {
 
     public static final double COUNTS_PER_MOTOR_REV1 = 1024;
     //public static final double COUNTS_PER_MOTOR_REV2 = 560;
@@ -38,6 +38,7 @@ public class ATeamAutonRed extends LinearOpMode {
     public double ArmUpPos = 1;
     public double ArmDownPos = 0;
     public int StartRed = 1;
+    public int StartBlue = -1;
     public double DistanceToBox = 40;
     public int MoveTimeout = 10;
 
@@ -135,7 +136,7 @@ public class ATeamAutonRed extends LinearOpMode {
     }
     public void DriveToBox() {
 
-        MoveFB(StartRed, DistanceToBox - (JewelNudgeDistance * StartRed)); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
+        MoveFB(StartBlue, DistanceToBox - (JewelNudgeDistance * StartBlue)); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
     }
 
     public void KnockJewel() {
