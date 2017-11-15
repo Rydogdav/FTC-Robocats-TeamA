@@ -79,6 +79,7 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
         colorSensor.enableLed(true);
         KnockJewel();
         colorSensor.enableLed(false);
+        Turn30(1);
         DriveToBox();
     }
 
@@ -131,6 +132,10 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
 
         }
     }
+    public void Turn30(int turn) {
+        encoderDrive(DRIVE_SPEED, 4 * turn, -4 * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
+    }
+
     public void DriveToBox() {
 
         MoveFB(StartRed, DistanceToBox - (JewelNudgeDistance * StartRed)); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction

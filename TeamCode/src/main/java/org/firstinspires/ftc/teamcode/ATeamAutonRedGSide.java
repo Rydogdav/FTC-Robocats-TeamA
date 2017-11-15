@@ -42,7 +42,6 @@ public class ATeamAutonRedGSide extends LinearOpMode {
     public double DistanceToBox = 40;
     public int MoveTimeout = 10;
 
-
     @Override
     public void runOpMode() {
 
@@ -82,6 +81,7 @@ public class ATeamAutonRedGSide extends LinearOpMode {
         colorSensor.enableLed(true);
         KnockJewel();
         colorSensor.enableLed(false);
+        Turn30(1);
         DriveToBox();
     }
 
@@ -133,6 +133,9 @@ public class ATeamAutonRedGSide extends LinearOpMode {
             rightDrive2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         }
+    }
+    public void Turn30(int turn) {
+        encoderDrive(DRIVE_SPEED, 4 * turn, -4 * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
     }
     public void DriveToBox() {
 
