@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous (name="Auton Blue Relic Side", group="Autonomous")
-public class ATeamAutonBlueRSide extends LinearOpMode {
+@Autonomous (name="Auton Red", group="Autonomous")
+public class ATeamAutonRed extends LinearOpMode {
 
     public static final double COUNTS_PER_MOTOR_REV1 = 1024;
     //public static final double COUNTS_PER_MOTOR_REV2 = 560;
@@ -30,13 +30,15 @@ public class ATeamAutonBlueRSide extends LinearOpMode {
     public int JewelDirection;
     public int Forward = 1;
     public int Backward = -1;
+    //public int error = 0;
+    //public int kp = 1;
 
     //Variables that change
     public double JewelNudgeDistance = 4;
     public double ArmUpPos = 1;
     public double ArmDownPos = 0;
-    public int StartBlue = -1;
-    public double DistanceToBox = 35;
+    public int StartRed = 1;
+    public double DistanceToBox = 40;
     public int MoveTimeout = 10;
 
 
@@ -75,6 +77,7 @@ public class ATeamAutonBlueRSide extends LinearOpMode {
 
         waitForStart();
 
+        //encoderDrive(DRIVE_SPEED, 18, 18, 1);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
         colorSensor.enableLed(true);
         KnockJewel();
         colorSensor.enableLed(false);
@@ -130,9 +133,12 @@ public class ATeamAutonBlueRSide extends LinearOpMode {
 
         }
     }
+    public void Turn30(int turn) {
+        encoderDrive(DRIVE_SPEED, 4 * turn, -4 * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
+    }
     public void DriveToBox() {
 
-        MoveFB(StartBlue, DistanceToBox - (JewelNudgeDistance * StartBlue)); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
+        MoveFB(StartRed, DistanceToBox - (JewelNudgeDistance * StartRed)); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
     }
 
     public void KnockJewel() {
@@ -152,12 +158,12 @@ public class ATeamAutonBlueRSide extends LinearOpMode {
     }
 
     public int DecideFB() {
-        if (colorSensor.blue() < colorSensor.red()) {
-            telemetry.addLine("Blue Backward");
+        if (colorSensor.blue() > colorSensor.red()) {
+            telemetry.addLine("Red Backward");
             telemetry.update();
             return Backward;
-        }else if (colorSensor.blue() > colorSensor.red()) {
-            telemetry.addLine("Blue Forward");
+        }else if (colorSensor.red() > colorSensor.blue()){
+            telemetry.addLine("Red Forward");
             telemetry.update();
             return Forward;
         }else
