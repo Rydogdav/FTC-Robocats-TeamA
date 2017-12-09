@@ -20,7 +20,7 @@ public class ATeamAutonRed extends LinearOpMode {
     //Variables that change
     public double JewelNudgeDistance = 4;
     public double ArmUpPos = 1;
-    public double ArmDownPos = 0;
+    public double ArmDownPos = .15;
     public int StartRed = 1;
     public double DistanceToMark1 = 31+2;
     public int MoveTimeout = 10;
@@ -53,8 +53,9 @@ public class ATeamAutonRed extends LinearOpMode {
         robot.colorSensor.enableLed(false);
         DriveToMark1();
         Turn90(-1);
-        robot.gripServo1.setPosition(.47);
-        robot.gripServo2.setPosition(.47);
+        robot.gripServo1.setPosition(.39);
+        robot.gripServo2.setPosition(.55);
+        encoderDrive(robot.DRIVE_SPEED, -3, -3, 5);
     }
 
     public void encoderDrive(double speed, double leftInches, double rightInches, double timeoutS) {

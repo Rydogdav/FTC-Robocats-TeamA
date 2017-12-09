@@ -20,7 +20,7 @@ public class ATeamAutonRedGSide extends LinearOpMode {
     //Variables that change
     public double JewelNudgeDistance = 4;
     public double ArmUpPos = 1;
-    public double ArmDownPos = 0;
+    public double ArmDownPos = .15;
     public int StartRed = 1;
     public int StartBlue = -1;
     public double DistanceToMark1 = 30;
@@ -54,8 +54,8 @@ public class ATeamAutonRedGSide extends LinearOpMode {
         robot.colorSensor.enableLed(false);
         DriveToMark1();
         Turn90(1);
-        robot.gripServo1.setPosition(.47);
-        robot.gripServo2.setPosition(.47);
+        robot.gripServo1.setPosition(.39);
+        robot.gripServo2.setPosition(.55);
 
     }
 
