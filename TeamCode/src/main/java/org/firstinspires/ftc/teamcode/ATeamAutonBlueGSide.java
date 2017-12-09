@@ -23,7 +23,7 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
     public double ArmDownPos = .15;
     public int StartBlue = -1;
     public int StartRed = 1;
-    public double DistanceToMark1 = 31-10;
+    public double DistanceToMark1 = 15;
     public int MoveTimeout = 10; //walrus
 
 
@@ -53,10 +53,11 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
         KnockJewel();
         robot.colorSensor.enableLed(false);
         DriveToMark1();
-        Turn90(-1);
+        Turn(-3.8);
         robot.gripServo1.setPosition(.39);
         robot.gripServo2.setPosition(.55);
-        encoderDrive(robot.DRIVE_SPEED, -3, -3, 5);
+        encoderDrive(robot.DRIVE_SPEED,12, 12, MoveTimeout);
+        encoderDrive(robot.DRIVE_SPEED, -2,-2,MoveTimeout);
 
     }
 
@@ -70,8 +71,8 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
         if (opModeIsActive()) {
 
             newLeftTarget1 = robot.motorFrontLeft.getCurrentPosition() + (int) (leftInches * robot.COUNTS_PER_INCH);
-            newRightTarget1 = robot.motorBackRight.getCurrentPosition() + (int) (rightInches * robot.COUNTS_PER_INCH);
-            newLeftTarget2 = robot.motorFrontLeft.getCurrentPosition() + (int) (leftInches * robot.COUNTS_PER_INCH);
+            newRightTarget1 = robot.motorFrontRight.getCurrentPosition() + (int) (rightInches * robot.COUNTS_PER_INCH);
+            newLeftTarget2 = robot.motorBackLeft.getCurrentPosition() + (int) (leftInches * robot.COUNTS_PER_INCH);
             newRightTarget2 = robot.motorBackRight.getCurrentPosition() + (int) (rightInches * robot.COUNTS_PER_INCH);
             robot.motorFrontLeft.setTargetPosition(newLeftTarget1);
             robot.motorFrontRight.setTargetPosition(newRightTarget1);
@@ -109,8 +110,8 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
 
         }
     }
-    public void Turn90(int turn) {
-        encoderDrive(robot.DRIVE_SPEED, 15 * turn, -15 * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
+    public void Turn(double turn) {// 5 inches for 30 degrees
+        encoderDrive(robot.DRIVE_SPEED, 5 * turn, -5 * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
     }
 
 
@@ -140,6 +141,7 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
     public int DecideFB() {
         if (robot.colorSensor.blue() < robot.colorSensor.red()) {
             telemetry.addLine("Blue Backward");
+            telemetry.addLine("You have gay");
             telemetry.update();
             return Backward;
         }else if (robot.colorSensor.blue() > robot.colorSensor.red()) {

@@ -45,6 +45,9 @@ public class ATeamAutonRed extends LinearOpMode {
         robot.motorFrontRight.getCurrentPosition();
         robot.motorBackRight.getCurrentPosition();
 
+        robot.gripServo1.setPosition(.9);
+        robot.gripServo2.setPosition(.05);
+
         waitForStart();
 
         //encoderDrive(DRIVE_SPEED, 18, 18, 1);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
@@ -52,7 +55,7 @@ public class ATeamAutonRed extends LinearOpMode {
         KnockJewel();
         robot.colorSensor.enableLed(false);
         DriveToMark1();
-        Turn90(-1);
+        Turn90(1);
         robot.gripServo1.setPosition(.39);
         robot.gripServo2.setPosition(.55);
         encoderDrive(robot.DRIVE_SPEED, -3, -3, 5);
@@ -68,8 +71,8 @@ public class ATeamAutonRed extends LinearOpMode {
         if (opModeIsActive()) {
 
             newLeftTarget1 = robot.motorFrontLeft.getCurrentPosition() + (int) (leftInches * robot.COUNTS_PER_INCH);
-            newRightTarget1 = robot.motorBackRight.getCurrentPosition() + (int) (rightInches * robot.COUNTS_PER_INCH);
-            newLeftTarget2 = robot.motorFrontLeft.getCurrentPosition() + (int) (leftInches * robot.COUNTS_PER_INCH);
+            newRightTarget1 = robot.motorFrontRight.getCurrentPosition() + (int) (rightInches * robot.COUNTS_PER_INCH);
+            newLeftTarget2 = robot.motorBackLeft.getCurrentPosition() + (int) (leftInches * robot.COUNTS_PER_INCH);
             newRightTarget2 = robot.motorBackRight.getCurrentPosition() + (int) (rightInches * robot.COUNTS_PER_INCH);
             robot.motorFrontLeft.setTargetPosition(newLeftTarget1);
             robot.motorFrontRight.setTargetPosition(newRightTarget1);
@@ -116,8 +119,6 @@ public class ATeamAutonRed extends LinearOpMode {
     }
 
     public void KnockJewel() {
-        robot.gripServo1.setPosition(.9);
-        robot.gripServo2.setPosition(.05);
         SetArm(ArmDownPos);
         sleep(1000);
         JewelDirection = DecideFB();
