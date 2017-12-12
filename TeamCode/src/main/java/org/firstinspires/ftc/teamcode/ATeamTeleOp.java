@@ -88,8 +88,8 @@ public class ATeamTeleOp extends LinearOpMode {
 
             robot.motorFrontLeft.setPower(-gamepad1.left_stick_y * gearMultiplier);
             robot.motorBackLeft.setPower(-gamepad1.left_stick_y * gearMultiplier);
-            robot.motorFrontRight.setPower(-gamepad1.right_stick_y * gearMultiplier);
-            robot.motorBackRight.setPower(-gamepad1.right_stick_y * gearMultiplier);
+            robot.motorFrontRight.setPower(-gamepad1.right_stick_y * gearMultiplier * 0.7);  // speed factor added to drive straighter
+            robot.motorBackRight.setPower(-gamepad1.right_stick_y * gearMultiplier * 0.7);   // speed factor added to drive straighter
 
             telemetry.addData("Status", "Run Time: " + robot.runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", gamepad1.left_stick_y, gamepad1.right_stick_y);

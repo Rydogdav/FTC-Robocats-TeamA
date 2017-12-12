@@ -16,7 +16,8 @@ public class HardwareMichaelBot {
     public static final double COUNTS_PER_MOTOR_REV1 = 1024;
     public static final double WHEEL_DIAMETER_INCHES = 4.0;
     public static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV1 / (WHEEL_DIAMETER_INCHES * Math.PI));
-    public static final double DRIVE_SPEED = 0.5;
+    public static final double DRIVE_SPEED_LEFT = 0.35;
+    public static final double DRIVE_SPEED_RIGHT = 0.5;
     public static final double TURN_SPEED = 0.5;
     
     public ElapsedTime runtime = new ElapsedTime();

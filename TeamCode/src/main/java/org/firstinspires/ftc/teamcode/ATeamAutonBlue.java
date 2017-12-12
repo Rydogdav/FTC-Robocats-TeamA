@@ -17,7 +17,7 @@ public class ATeamAutonBlue extends LinearOpMode {
     HardwareMichaelBot robot = new HardwareMichaelBot();
 
     //Variables that change
-    public double JewelNudgeDistance = 4;
+    public double JewelNudgeDistance = 2.05;
     public double ArmUpPos = 1;
     public double ArmDownPos = .15;
     public int StartBlue = -1;
@@ -48,15 +48,17 @@ public class ATeamAutonBlue extends LinearOpMode {
 
         robot.colorSensor.enableLed(true);
         KnockJewel();
-        robot.colorSensor.enableLed(false);
+        robot.colorSensor.enableLed(false); // egg
         DriveToMark1();
-        Turn90(-1);
-        robot.gripServo1.setPosition(.39);
+        Turn90(-3);
+        robot.gripServo1.setPosition(.39); // sheet
         robot.gripServo2.setPosition(.55);
-
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
+//box
     }
 
-    public void encoderDrive(double speed, double leftInches, double rightInches, double timeoutS) {
+    public void encoderDrive(double Lspeed,double Rspeed,  double leftInches, double rightInches, double timeoutS) {
 
         int newLeftTarget1;
         int newRightTarget1;
@@ -71,19 +73,19 @@ public class ATeamAutonBlue extends LinearOpMode {
             newRightTarget2 = robot.motorBackRight.getCurrentPosition() + (int) (rightInches * robot.COUNTS_PER_INCH);
             robot.motorFrontLeft.setTargetPosition(newLeftTarget1);
             robot.motorFrontRight.setTargetPosition(newRightTarget1);
-            robot.motorFrontLeft.setTargetPosition(newLeftTarget2);
+            robot.motorBackLeft.setTargetPosition(newLeftTarget2);
             robot.motorBackRight.setTargetPosition(newRightTarget2);
 
             robot.motorFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.motorFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.motorFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.motorBackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.motorBackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             robot.runtime.reset();
-            robot.motorFrontLeft.setPower(speed);
-            robot.motorFrontRight.setPower(speed);
-            robot.motorFrontLeft.setPower(speed);
-            robot.motorBackRight.setPower(speed);
+            robot.motorFrontLeft.setPower(Lspeed);
+            robot.motorFrontRight.setPower(Rspeed);
+            robot.motorBackLeft.setPower(Lspeed);
+            robot.motorBackRight.setPower(Rspeed);
 
             while (opModeIsActive() && (robot.runtime.seconds() < timeoutS) && (robot.motorFrontLeft.isBusy() && robot.motorFrontRight.isBusy() && (robot.motorFrontLeft.isBusy() && robot.motorBackRight.isBusy()))) {
 
@@ -94,20 +96,20 @@ public class ATeamAutonBlue extends LinearOpMode {
             }
 
             robot.motorFrontLeft.setPower(0);
-            robot.motorFrontLeft.setPower(0);
             robot.motorFrontRight.setPower(0);
+            robot.motorBackLeft.setPower(0);
             robot.motorBackRight.setPower(0);
 
             robot.motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         }
     }
 
-    public void Turn90(int turn) {
-        encoderDrive(robot.DRIVE_SPEED, -15 * turn, 15 * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
+    public void Turn90(double turn) {
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -5 * turn, 5 * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
     }
 
     public void DriveToMark1() {
@@ -148,6 +150,6 @@ public class ATeamAutonBlue extends LinearOpMode {
 
     public void MoveFB(double Direction, double Distance) {
 
-        encoderDrive(robot.DRIVE_SPEED, Distance * Direction, Distance * Direction, MoveTimeout);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, Distance * Direction, Distance * Direction, MoveTimeout);
     }
 }

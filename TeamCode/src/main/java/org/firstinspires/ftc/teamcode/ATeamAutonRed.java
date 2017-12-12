@@ -55,13 +55,13 @@ public class ATeamAutonRed extends LinearOpMode {
         KnockJewel();
         robot.colorSensor.enableLed(false);
         DriveToMark1();
-        Turn90(1);
+        Turn90(3);
         robot.gripServo1.setPosition(.39);
         robot.gripServo2.setPosition(.55);
-        encoderDrive(robot.DRIVE_SPEED, -3, -3, 5);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
     }
 
-    public void encoderDrive(double speed, double leftInches, double rightInches, double timeoutS) {
+    public void encoderDrive(double Lspeed,double Rspeed, double leftInches, double rightInches, double timeoutS) {
 
         int newLeftTarget1;
         int newRightTarget1;
@@ -85,10 +85,10 @@ public class ATeamAutonRed extends LinearOpMode {
             robot.motorBackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             robot.runtime.reset();
-            robot.motorFrontLeft.setPower(speed);
-            robot.motorFrontRight.setPower(speed);
-            robot.motorBackLeft.setPower(speed);
-            robot.motorBackRight.setPower(speed);
+            robot.motorFrontLeft.setPower(Lspeed);
+            robot.motorFrontRight.setPower(Rspeed);
+            robot.motorBackLeft.setPower(Lspeed);
+            robot.motorBackRight.setPower(Rspeed);
 
             while (opModeIsActive() && (robot.runtime.seconds() < timeoutS) && (robot.motorFrontLeft.isBusy() && robot.motorFrontRight.isBusy() && (robot.motorBackLeft.isBusy() && robot.motorBackRight.isBusy()))) {
 
@@ -110,8 +110,8 @@ public class ATeamAutonRed extends LinearOpMode {
 
         }
     }
-    public void Turn90(int turn) {
-        encoderDrive(robot.DRIVE_SPEED, 15 * turn, -15 * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
+    public void Turn90(double turn) {
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 5 * turn, -5 * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
     }
     public void DriveToMark1() {
 
@@ -149,7 +149,7 @@ public class ATeamAutonRed extends LinearOpMode {
 
     public void MoveFB(double Direction, double Distance) {
 
-        encoderDrive(robot.DRIVE_SPEED, Distance * Direction, Distance * Direction, MoveTimeout);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, Distance * Direction, Distance * Direction, MoveTimeout);
     }
 
 

@@ -24,7 +24,7 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
     public int StartBlue = -1;
     public int StartRed = 1;
     public double DistanceToMark1 = 15;
-    public int MoveTimeout = 10; //walrus
+    public int MoveTimeout = 10; // walrus
 
 
     @Override
@@ -56,12 +56,12 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
         Turn(-3.8);
         robot.gripServo1.setPosition(.39);
         robot.gripServo2.setPosition(.55);
-        encoderDrive(robot.DRIVE_SPEED,12, 12, MoveTimeout);
-        encoderDrive(robot.DRIVE_SPEED, -2,-2,MoveTimeout);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT,12, 12, MoveTimeout);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -2,-2,MoveTimeout);
 
     }
 
-    public void encoderDrive(double speed, double leftInches, double rightInches, double timeoutS) {
+    public void encoderDrive(double Lspeed,double Rspeed, double leftInches, double rightInches, double timeoutS) {
 
         int newLeftTarget1;
         int newRightTarget1;
@@ -85,10 +85,10 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
             robot.motorBackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             robot.runtime.reset();
-            robot.motorFrontLeft.setPower(speed);
-            robot.motorFrontRight.setPower(speed);
-            robot.motorBackLeft.setPower(speed);
-            robot.motorBackRight.setPower(speed);
+            robot.motorFrontLeft.setPower(Lspeed);
+            robot.motorFrontRight.setPower(Rspeed);
+            robot.motorBackLeft.setPower(Lspeed);
+            robot.motorBackRight.setPower(Rspeed);
 
             while (opModeIsActive() && (robot.runtime.seconds() < timeoutS) && (robot.motorFrontLeft.isBusy() && robot.motorFrontRight.isBusy() && (robot.motorBackLeft.isBusy() && robot.motorBackRight.isBusy()))) {
 
@@ -111,7 +111,7 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
         }
     }
     public void Turn(double turn) {// 5 inches for 30 degrees
-        encoderDrive(robot.DRIVE_SPEED, 5 * turn, -5 * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 5 * turn, -5 * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
     }
 
 
@@ -154,7 +154,7 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
 
     public void MoveFB(double Direction, double Distance) {
 
-        encoderDrive(robot.DRIVE_SPEED, Distance * Direction, Distance * Direction, MoveTimeout);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, Distance * Direction, Distance * Direction, MoveTimeout);
     }
 
 }
