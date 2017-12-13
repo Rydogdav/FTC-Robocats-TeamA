@@ -23,7 +23,7 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
     public double ArmDownPos = .15;
     public int StartBlue = -1;
     public int StartRed = 1;
-    public double DistanceToMark1 = 15;
+    public double DistanceToMark1 = 25; //15
     public int MoveTimeout = 10; // walrus
 
 
@@ -52,11 +52,12 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
         robot.colorSensor.enableLed(true);
         KnockJewel();
         robot.colorSensor.enableLed(false);
+        sleep(1000);
         DriveToMark1();
         Turn(-3.8);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT,12, 12, MoveTimeout);
         robot.gripServo1.setPosition(.39);
         robot.gripServo2.setPosition(.55);
-        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT,12, 12, MoveTimeout);
         encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -2,-2,MoveTimeout);
 
     }
