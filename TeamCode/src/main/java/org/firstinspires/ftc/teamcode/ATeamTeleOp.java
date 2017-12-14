@@ -63,7 +63,7 @@ public class ATeamTeleOp extends LinearOpMode {
 
                 robot.gripServo1.setPosition(.47);
                 robot.gripServo2.setPosition(.47);
-            } else if (gamepad1.a) { //closes gripper
+            } else if (gamepad1.a) { //closes grippers
 
                 robot.gripServo1.setPosition(.9);
                 robot.gripServo2.setPosition(.05);
