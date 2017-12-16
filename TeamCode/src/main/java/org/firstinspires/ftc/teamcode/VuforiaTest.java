@@ -98,7 +98,7 @@ public class VuforiaTest extends LinearOpMode {
              * UNKNOWN will be returned by {@link RelicRecoveryVuMark#from(VuforiaTrackable)}.
              */
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            if (vuMark == RelicRecoveryVuMark.CENTER) {
+            if (vuMark == RelicRecoveryVuMark.CENTER || vuMark == RelicRecoveryVuMark.UNKNOWN) {
                 telemetry.addData("VuMark", "%s visible", vuMark);
                 telemetry.update();
 
@@ -112,7 +112,36 @@ public class VuforiaTest extends LinearOpMode {
                 robot.gripServo1.setPosition(.39);
                 robot.gripServo2.setPosition(.55);
                 encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
+            }
+            if (vuMark == RelicRecoveryVuMark.LEFT) {
+                telemetry.addData("VuMark", "%s visible", vuMark);
+                telemetry.update();
 
+                robot.colorSensor.enableLed(true);
+                KnockJewel();
+                robot.colorSensor.enableLed(false);
+                sleep(1000);
+                DriveToMark1(distanceToCenterBox - 5);
+                Turn30(-3);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
+                robot.gripServo1.setPosition(.39);
+                robot.gripServo2.setPosition(.55);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
+            }
+            if (vuMark == RelicRecoveryVuMark.RIGHT) {
+                telemetry.addData("VuMark", "%s visible", vuMark);
+                telemetry.update();
+
+                robot.colorSensor.enableLed(true);
+                KnockJewel();
+                robot.colorSensor.enableLed(false);
+                sleep(1000);
+                DriveToMark1(distanceToCenterBox + 5);
+                Turn30(-3);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
+                robot.gripServo1.setPosition(.39);
+                robot.gripServo2.setPosition(.55);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
             }
         }
     }
