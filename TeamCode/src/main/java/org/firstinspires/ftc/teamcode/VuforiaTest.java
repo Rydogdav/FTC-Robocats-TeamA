@@ -1,15 +1,30 @@
-/**
- * Made by Shan B., Collin G., Michael K.
+/*
+Made by Shan B., Collin G., Michael K.
  */
-
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 
-@Autonomous (name="Auton Blue", group="Autonomous")
-public class ATeamAutonBlue extends LinearOpMode {
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuMarkInstanceId;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+
+@Autonomous(name="Vuforia Example Code", group ="Autonomous")
+@Disabled
+public class VuforiaTest extends LinearOpMode {
 
     public int JewelDirection;
     public int Forward = 1;
@@ -21,12 +36,38 @@ public class ATeamAutonBlue extends LinearOpMode {
     public double ArmUpPos = 1;
     public double ArmDownPos = .15;
     public int StartBlue = -1;
-    public double DistanceToMark1 = 31 + 2.5;
+    public double distanceToCenterBox = 29;
     public int MoveTimeout = 10;
 
 
+    public static final String TAG = "Vuforia VuMark Sample";
+
+    OpenGLMatrix lastLocation = null;
+
+    VuforiaLocalizer vuforia;
+
     @Override
     public void runOpMode() {
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+
+        parameters.vuforiaLicenseKey = "AW7cBtn/////AAAAGYMkfBwkBk+RtHulA/YtafKMtOkKRJGL0" +
+                "uSzzGVGQDzIzhkvOQY4lJnPIwwP7MBF5k8AKuhF0QwYx4nlBgTOlMv23OSHNfvy9tE0Egigzp" +
+                "bi7p0zUS3bgP9XPd8IsdyQQhwdQQFY64eZiNxqstMPQqOhCyZ+MuQjWWiW1gAeGaPNxD8sUUS" +
+                "FbcP0F0LfTWY8JYNFDjr7vUfB8koqwsWCYrB8gQH9ZAwVRDQlHbpx4z1ZEySLnDCRXX0Ns4R1" +
+                "PktDJeHJq4Xj0wInNVNPLwCSXaw/yLDkPGa+IWws63uWwr3h4TaxJEs4zgqqbTyCVDPgeAtjm" +
+                "wT6KCrrlsS6kW1czPF8bNWq4U5BdinbKBZGrKS7";
+
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+
+        telemetry.addData(">", "Press Play to start");
+        telemetry.update();
+
         robot.init(hardwareMap);
 
         robot.motorFrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -46,19 +87,35 @@ public class ATeamAutonBlue extends LinearOpMode {
 
         waitForStart();
 
-        robot.colorSensor.enableLed(true);
-        KnockJewel();
-        robot.colorSensor.enableLed(false);
-        sleep(1000);
-        DriveToMark1();
-        Turn90(-2.1);
-        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
-        robot.gripServo1.setPosition(.39);
-        robot.gripServo2.setPosition(.55);
-        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
-//box
-    }
+        relicTrackables.activate();
 
+        while (opModeIsActive()) {
+
+            /**
+             * See if any of the instances of {@link relicTemplate} are currently visible.
+             * {@link RelicRecoveryVuMark} is an enum which can have the following values:
+             * UNKNOWN, LEFT, CENTER, and RIGHT. When a VuMark is visible, something other than
+             * UNKNOWN will be returned by {@link RelicRecoveryVuMark#from(VuforiaTrackable)}.
+             */
+            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+            if (vuMark == RelicRecoveryVuMark.CENTER) {
+                telemetry.addData("VuMark", "%s visible", vuMark);
+                telemetry.update();
+
+                robot.colorSensor.enableLed(true);
+                KnockJewel();
+                robot.colorSensor.enableLed(false);
+                sleep(1000);
+                DriveToMark1(distanceToCenterBox);
+                Turn30(-3);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
+                robot.gripServo1.setPosition(.39);
+                robot.gripServo2.setPosition(.55);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
+
+            }
+        }
+    }
     public void encoderDrive(double Lspeed,double Rspeed,  double leftInches, double rightInches, double timeoutS) {
 
         int newLeftTarget1;
@@ -109,13 +166,13 @@ public class ATeamAutonBlue extends LinearOpMode {
         }
     }
 
-    public void Turn90(double turn) {
+    public void Turn30(double turn) {
         encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -5 * turn, 5 * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
     }
 
-    public void DriveToMark1() {
+    public void DriveToMark1(double distance) {
 
-        MoveFB(StartBlue, DistanceToMark1 - (JewelNudgeDistance * StartBlue)); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
+        MoveFB(StartBlue, distance - (JewelNudgeDistance * StartBlue)); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
     }
 
     public void KnockJewel() {

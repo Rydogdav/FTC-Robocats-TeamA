@@ -45,9 +45,6 @@ public class ATeamAutonRed extends LinearOpMode {
         robot.motorFrontRight.getCurrentPosition();
         robot.motorBackRight.getCurrentPosition();
 
-        robot.gripServo1.setPosition(.9);
-        robot.gripServo2.setPosition(.05);
-
         waitForStart();
 
         //encoderDrive(DRIVE_SPEED, 18, 18, 1);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
@@ -56,7 +53,7 @@ public class ATeamAutonRed extends LinearOpMode {
         robot.colorSensor.enableLed(false);
         sleep(1000);
         DriveToMark1();
-        Turn90(3);
+        Turn30(1.75);
         sleep(1000);
         robot.gripServo1.setPosition(.39);
         robot.gripServo2.setPosition(.55);
@@ -112,7 +109,7 @@ public class ATeamAutonRed extends LinearOpMode {
 
         }
     }
-    public void Turn90(double turn) {
+    public void Turn30(double turn) {
         encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 5 * turn, -5 * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
     }
     public void DriveToMark1() {
@@ -121,6 +118,8 @@ public class ATeamAutonRed extends LinearOpMode {
     }
 
     public void KnockJewel() {
+        robot.gripServo1.setPosition(.9);
+        robot.gripServo2.setPosition(.05);
         SetArm(ArmDownPos);
         sleep(1000);
         JewelDirection = DecideFB();
