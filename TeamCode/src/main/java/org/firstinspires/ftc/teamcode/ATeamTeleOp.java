@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 
-@TeleOp(name="TeleOp Alpha 1.0", group="Linear Opmode")
+@TeleOp(name="TeleOp Release", group="Linear Opmode")
 public class ATeamTeleOp extends LinearOpMode {
 
     public double gearMultiplier = 1.1;
