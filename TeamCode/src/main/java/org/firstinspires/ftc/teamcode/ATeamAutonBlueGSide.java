@@ -111,7 +111,7 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
 
         }
     }
-    public void Turn(double turn) {// 5 inches for 30 degrees
+    public void Turn(double turn) {
         encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 5 * turn, -5 * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
     }
 

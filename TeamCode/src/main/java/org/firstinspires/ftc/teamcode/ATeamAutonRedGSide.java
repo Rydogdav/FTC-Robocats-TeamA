@@ -9,6 +9,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+
 @Autonomous (name="Auton Red Glyph Side", group="Autonomous")
 public class ATeamAutonRedGSide extends LinearOpMode {
 
@@ -25,9 +32,31 @@ public class ATeamAutonRedGSide extends LinearOpMode {
     public int StartBlue = -1;
     public double DistanceToMark1 = 25;
     public int MoveTimeout = 10;
+    public static final String TAG = "Vuforia VuMark Sample";
+
+    OpenGLMatrix lastLocation = null;
+
+    VuforiaLocalizer vuforia;
 
     @Override
     public void runOpMode() {
+
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+
+        parameters.vuforiaLicenseKey = "AW7cBtn/////AAAAGYMkfBwkBk+RtHulA/YtafKMtOkKRJGL0" +
+                "uSzzGVGQDzIzhkvOQY4lJnPIwwP7MBF5k8AKuhF0QwYx4nlBgTOlMv23OSHNfvy9tE0Egigzp" +
+                "bi7p0zUS3bgP9XPd8IsdyQQhwdQQFY64eZiNxqstMPQqOhCyZ+MuQjWWiW1gAeGaPNxD8sUUS" +
+                "FbcP0F0LfTWY8JYNFDjr7vUfB8koqwsWCYrB8gQH9ZAwVRDQlHbpx4z1ZEySLnDCRXX0Ns4R1" +
+                "PktDJeHJq4Xj0wInNVNPLwCSXaw/yLDkPGa+IWws63uWwr3h4TaxJEs4zgqqbTyCVDPgeAtjm" +
+                "wT6KCrrlsS6kW1czPF8bNWq4U5BdinbKBZGrKS7";
+
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate");
         robot.init(hardwareMap);
 
         robot.motorFrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -52,14 +81,59 @@ public class ATeamAutonRedGSide extends LinearOpMode {
         robot.colorSensor.enableLed(true);
         KnockJewel();
         robot.colorSensor.enableLed(false);
-        sleep(1000);
+        /*sleep(1000);
         DriveToMark1();
         Turn90(.8);
         encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT,9, 9, MoveTimeout);
         robot.gripServo1.setPosition(.39);
         robot.gripServo2.setPosition(.55);
-        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -2,-2,MoveTimeout);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -2,-2,MoveTimeout);*/
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+        if (vuMark == RelicRecoveryVuMark.CENTER || vuMark == RelicRecoveryVuMark.UNKNOWN) {
+            telemetry.addLine("Center");// still need to do numbers
+            telemetry.update();
 
+               /* robot.colorSensor.enableLed(true);
+                KnockJewel();
+                robot.colorSensor.enableLed(false);
+                sleep(1000);
+                DriveToMark1(distanceToCenterBox);
+                Turn30(-3);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
+                robot.gripServo1.setPosition(.39);
+                robot.gripServo2.setPosition(.55);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);*/
+        }
+        if (vuMark == RelicRecoveryVuMark.LEFT) {
+            telemetry.addLine("Left");
+            telemetry.update();
+
+               /* robot.colorSensor.enableLed(true);
+                KnockJewel();
+                robot.colorSensor.enableLed(false);
+                sleep(1000);
+                DriveToMark1(distanceToCenterBox - 5);
+                Turn30(-3);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
+                robot.gripServo1.setPosition(.39);
+                robot.gripServo2.setPosition(.55);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);*/
+        }
+        if (vuMark == RelicRecoveryVuMark.RIGHT) {
+            telemetry.addLine("Right");
+            telemetry.update();
+
+                /*robot.colorSensor.enableLed(true);
+                KnockJewel();
+                robot.colorSensor.enableLed(false);
+                sleep(1000);
+                DriveToMark1(distanceToCenterBox + 5);
+                Turn30(-3);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
+                robot.gripServo1.setPosition(.39);
+                robot.gripServo2.setPosition(.55);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);*/
+        }
     }
 
     public void encoderDrive(double Lspeed, double Rspeed, double leftInches, double rightInches, double timeoutS) {

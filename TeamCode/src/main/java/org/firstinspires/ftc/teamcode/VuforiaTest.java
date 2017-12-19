@@ -99,10 +99,10 @@ public class VuforiaTest extends LinearOpMode {
              */
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
             if (vuMark == RelicRecoveryVuMark.CENTER || vuMark == RelicRecoveryVuMark.UNKNOWN) {
-                telemetry.addData("VuMark", "%s visible", vuMark);
+                telemetry.addLine("Center");
                 telemetry.update();
 
-                robot.colorSensor.enableLed(true);
+               /* robot.colorSensor.enableLed(true);
                 KnockJewel();
                 robot.colorSensor.enableLed(false);
                 sleep(1000);
@@ -111,13 +111,13 @@ public class VuforiaTest extends LinearOpMode {
                 encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
                 robot.gripServo1.setPosition(.39);
                 robot.gripServo2.setPosition(.55);
-                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);*/
             }
             if (vuMark == RelicRecoveryVuMark.LEFT) {
-                telemetry.addData("VuMark", "%s visible", vuMark);
+                telemetry.addLine("Left");
                 telemetry.update();
 
-                robot.colorSensor.enableLed(true);
+               /* robot.colorSensor.enableLed(true);
                 KnockJewel();
                 robot.colorSensor.enableLed(false);
                 sleep(1000);
@@ -126,13 +126,13 @@ public class VuforiaTest extends LinearOpMode {
                 encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
                 robot.gripServo1.setPosition(.39);
                 robot.gripServo2.setPosition(.55);
-                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);*/
             }
             if (vuMark == RelicRecoveryVuMark.RIGHT) {
-                telemetry.addData("VuMark", "%s visible", vuMark);
+                telemetry.addLine("Right");
                 telemetry.update();
 
-                robot.colorSensor.enableLed(true);
+                /*robot.colorSensor.enableLed(true);
                 KnockJewel();
                 robot.colorSensor.enableLed(false);
                 sleep(1000);
@@ -141,7 +141,7 @@ public class VuforiaTest extends LinearOpMode {
                 encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
                 robot.gripServo1.setPosition(.39);
                 robot.gripServo2.setPosition(.55);
-                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);*/
             }
         }
     }
