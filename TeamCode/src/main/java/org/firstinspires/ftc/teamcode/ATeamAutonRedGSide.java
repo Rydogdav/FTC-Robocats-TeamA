@@ -81,19 +81,19 @@ public class ATeamAutonRedGSide extends LinearOpMode {
         robot.colorSensor.enableLed(true);
         KnockJewel();
         robot.colorSensor.enableLed(false);
-        /*sleep(1000);
+        sleep(1000);
         DriveToMark1();
         Turn90(.8);
         encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT,9, 9, MoveTimeout);
         robot.gripServo1.setPosition(.39);
         robot.gripServo2.setPosition(.55);
-        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -2,-2,MoveTimeout);*/
-        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -2,-2,MoveTimeout);
+        /*RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
         if (vuMark == RelicRecoveryVuMark.CENTER || vuMark == RelicRecoveryVuMark.UNKNOWN) {
             telemetry.addLine("Center");// still need to do numbers
             telemetry.update();
 
-               /* robot.colorSensor.enableLed(true);
+                robot.colorSensor.enableLed(true);
                 KnockJewel();
                 robot.colorSensor.enableLed(false);
                 sleep(1000);
@@ -102,13 +102,13 @@ public class ATeamAutonRedGSide extends LinearOpMode {
                 encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
                 robot.gripServo1.setPosition(.39);
                 robot.gripServo2.setPosition(.55);
-                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);*/
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
         }
         if (vuMark == RelicRecoveryVuMark.LEFT) {
             telemetry.addLine("Left");
             telemetry.update();
 
-               /* robot.colorSensor.enableLed(true);
+                robot.colorSensor.enableLed(true);
                 KnockJewel();
                 robot.colorSensor.enableLed(false);
                 sleep(1000);
@@ -117,13 +117,13 @@ public class ATeamAutonRedGSide extends LinearOpMode {
                 encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
                 robot.gripServo1.setPosition(.39);
                 robot.gripServo2.setPosition(.55);
-                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);*/
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
         }
         if (vuMark == RelicRecoveryVuMark.RIGHT) {
             telemetry.addLine("Right");
             telemetry.update();
 
-                /*robot.colorSensor.enableLed(true);
+                robot.colorSensor.enableLed(true);
                 KnockJewel();
                 robot.colorSensor.enableLed(false);
                 sleep(1000);
@@ -132,8 +132,8 @@ public class ATeamAutonRedGSide extends LinearOpMode {
                 encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
                 robot.gripServo1.setPosition(.39);
                 robot.gripServo2.setPosition(.55);
-                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);*/
-        }
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
+        }*/
     }
 
     public void encoderDrive(double Lspeed, double Rspeed, double leftInches, double rightInches, double timeoutS) {

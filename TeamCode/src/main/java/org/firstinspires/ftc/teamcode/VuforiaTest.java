@@ -102,7 +102,7 @@ public class VuforiaTest extends LinearOpMode {
                 telemetry.addLine("Center");
                 telemetry.update();
 
-               /* robot.colorSensor.enableLed(true);
+                robot.colorSensor.enableLed(true);
                 KnockJewel();
                 robot.colorSensor.enableLed(false);
                 sleep(1000);
@@ -111,13 +111,13 @@ public class VuforiaTest extends LinearOpMode {
                 encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
                 robot.gripServo1.setPosition(.39);
                 robot.gripServo2.setPosition(.55);
-                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);*/
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
             }
             if (vuMark == RelicRecoveryVuMark.LEFT) {
                 telemetry.addLine("Left");
                 telemetry.update();
 
-               /* robot.colorSensor.enableLed(true);
+                robot.colorSensor.enableLed(true);
                 KnockJewel();
                 robot.colorSensor.enableLed(false);
                 sleep(1000);
@@ -126,13 +126,13 @@ public class VuforiaTest extends LinearOpMode {
                 encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
                 robot.gripServo1.setPosition(.39);
                 robot.gripServo2.setPosition(.55);
-                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);*/
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
             }
             if (vuMark == RelicRecoveryVuMark.RIGHT) {
                 telemetry.addLine("Right");
                 telemetry.update();
 
-                /*robot.colorSensor.enableLed(true);
+                robot.colorSensor.enableLed(true);
                 KnockJewel();
                 robot.colorSensor.enableLed(false);
                 sleep(1000);
@@ -141,7 +141,7 @@ public class VuforiaTest extends LinearOpMode {
                 encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
                 robot.gripServo1.setPosition(.39);
                 robot.gripServo2.setPosition(.55);
-                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);*/
+                encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
             }
         }
     }
