@@ -71,7 +71,7 @@ public class ATeamTeleOp extends LinearOpMode {
 
             if (gamepad1.left_trigger > 0){
 
-                gearMultiplier = .2;
+                gearMultiplier = .35;
             }
 
             if (gamepad1.right_trigger > 0) {

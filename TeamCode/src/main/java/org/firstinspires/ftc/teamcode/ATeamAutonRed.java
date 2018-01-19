@@ -122,6 +122,7 @@ public class ATeamAutonRed extends LinearOpMode {
 
         robot.gripServo1.setPosition(.9);
         robot.gripServo2.setPosition(.05);
+        sleep(1000);
         robot.liftMotor.setPower(1);
         sleep(1000);
         robot.liftMotor.setPower(0);
