@@ -48,13 +48,13 @@ public class Turn extends LinearOpMode {
 
         waitForStart();
 
-        Turn(30);
+        turn(30);
         sleep(1000);
-        Turn(-30);
-        sleep(1000);
-        Turn(5);
-        sleep(1000);
-        Turn(-5);
+        turn(-30);
+        //sleep(1000);
+        //Turn(5);
+        //sleep(1000);
+        //Turn(-5);
 
     }
 
@@ -107,7 +107,7 @@ public class Turn extends LinearOpMode {
 
         }
     }
-    public void Turn(double turn) {
+    public void turn(double turn) {
         encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, (1/6) * turn, (-1/6) * turn, MoveTimeout);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
     }
 
@@ -138,7 +138,6 @@ public class Turn extends LinearOpMode {
     public int DecideFB() {
         if (robot.colorSensor.blue() < robot.colorSensor.red()) {
             telemetry.addLine("Blue Backward");
-            telemetry.addLine("You have gay");
             telemetry.update();
             return Backward;
         }else if (robot.colorSensor.blue() > robot.colorSensor.red()) {

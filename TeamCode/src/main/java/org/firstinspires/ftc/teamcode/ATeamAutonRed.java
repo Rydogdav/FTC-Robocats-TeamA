@@ -22,7 +22,7 @@ public class ATeamAutonRed extends LinearOpMode {
     public double ArmUpPos = 1;
     public double ArmDownPos = .15;
     public int StartRed = 1;
-    public double DistanceToMark1 = 31+2;
+    public double DistanceToMark1 = 34.5;
     public int MoveTimeout = 10;
 
 
@@ -53,11 +53,12 @@ public class ATeamAutonRed extends LinearOpMode {
         robot.colorSensor.enableLed(false);
         sleep(1000);
         DriveToMark1();
-        Turn30(1.75);
+        Turn30(2.5);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 14, 14, MoveTimeout);
         sleep(1000);
         robot.gripServo1.setPosition(.39);
         robot.gripServo2.setPosition(.55);
-        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -3, -3, 5);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -5, -5, 5);
     }
 
     public void encoderDrive(double Lspeed,double Rspeed, double leftInches, double rightInches, double timeoutS) {
@@ -114,12 +115,16 @@ public class ATeamAutonRed extends LinearOpMode {
     }
     public void DriveToMark1() {
 
-        MoveFB(StartRed, DistanceToMark1 - (JewelNudgeDistance * StartRed)); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
+        MoveFB(StartRed, DistanceToMark1 + (JewelNudgeDistance * DecideFB())); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
     }
 
     public void KnockJewel() {
+
         robot.gripServo1.setPosition(.9);
         robot.gripServo2.setPosition(.05);
+        robot.liftMotor.setPower(1);
+        sleep(1000);
+        robot.liftMotor.setPower(0);
         SetArm(ArmDownPos);
         sleep(1000);
         JewelDirection = DecideFB();

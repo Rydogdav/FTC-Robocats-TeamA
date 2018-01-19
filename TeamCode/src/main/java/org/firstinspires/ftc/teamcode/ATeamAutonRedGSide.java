@@ -76,18 +76,16 @@ public class ATeamAutonRedGSide extends LinearOpMode {
         robot.motorBackRight.getCurrentPosition();
 
         waitForStart();
-
-
         robot.colorSensor.enableLed(true);
         KnockJewel();
         robot.colorSensor.enableLed(false);
         sleep(1000);
         DriveToMark1();
         Turn90(.8);
-        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT,9, 9, MoveTimeout);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT,27, 27, MoveTimeout);
         robot.gripServo1.setPosition(.39);
         robot.gripServo2.setPosition(.55);
-        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -2,-2,MoveTimeout);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -5,-5,MoveTimeout);
         /*RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
         if (vuMark == RelicRecoveryVuMark.CENTER || vuMark == RelicRecoveryVuMark.UNKNOWN) {
             telemetry.addLine("Center");// still need to do numbers
@@ -190,17 +188,15 @@ public class ATeamAutonRedGSide extends LinearOpMode {
     }
     public void DriveToMark1() {
 
-        MoveFB(StartRed, DistanceToMark1 - (JewelNudgeDistance * StartBlue)); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
+        MoveFB(StartRed, DistanceToMark1 - (JewelNudgeDistance *  DecideFB())); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
     }
 
     public void KnockJewel() {
         robot.gripServo1.setPosition(.9);
         robot.gripServo2.setPosition(.05);
-        sleep(1000);
         robot.liftMotor.setPower(1);
-        sleep(500);
-        robot.liftMotor.setPower(0);
         sleep(1000);
+        robot.liftMotor.setPower(0);
         SetArm(ArmDownPos);
         sleep(1000);
         JewelDirection = DecideFB();

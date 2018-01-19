@@ -54,11 +54,11 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
         robot.colorSensor.enableLed(false);
         sleep(1000);
         DriveToMark1();
-        Turn(-3.8);
+        Turn(-6);
         encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT,12, 12, MoveTimeout);
         robot.gripServo1.setPosition(.39);
         robot.gripServo2.setPosition(.55);
-        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -2,-2,MoveTimeout);
+        encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -5,-5,MoveTimeout);
 
     }
 
@@ -118,12 +118,15 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
 
     public void DriveToMark1() {
 
-        MoveFB(StartBlue, DistanceToMark1 - (JewelNudgeDistance * StartBlue)); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
+        MoveFB(StartBlue, DistanceToMark1 - (JewelNudgeDistance *  DecideFB())); //Since StartSide is either positive 1 or negative 1 it changes the sign of the subtraction
     }
 
     public void KnockJewel() {
         robot.gripServo1.setPosition(.9);
         robot.gripServo2.setPosition(.05);
+        robot.liftMotor.setPower(1);
+        sleep(1000);
+        robot.liftMotor.setPower(0);
         SetArm(ArmDownPos);
         sleep(1000);
         JewelDirection = DecideFB();
@@ -142,7 +145,6 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
     public int DecideFB() {
         if (robot.colorSensor.blue() < robot.colorSensor.red()) {
             telemetry.addLine("Blue Backward");
-            telemetry.addLine("You have gay");
             telemetry.update();
             return Backward;
         }else if (robot.colorSensor.blue() > robot.colorSensor.red()) {
