@@ -55,6 +55,9 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
         sleep(1000);
         DriveToMark1();
         Turn(-6);
+        robot.liftMotor.setPower(-.3);
+        sleep(500);
+        robot.liftMotor.setPower(0);
         encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT,12, 12, MoveTimeout);
         robot.gripServo1.setPosition(.39);
         robot.gripServo2.setPosition(.55);
@@ -126,7 +129,7 @@ public class ATeamAutonBlueGSide extends LinearOpMode {
         robot.gripServo2.setPosition(.05);
         sleep(1000);
         robot.liftMotor.setPower(1);
-        sleep(1000);
+        sleep(300);
         robot.liftMotor.setPower(0);
         SetArm(ArmDownPos);
         sleep(1000);

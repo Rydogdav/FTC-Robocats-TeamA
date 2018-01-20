@@ -7,11 +7,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
@@ -81,8 +79,11 @@ public class ATeamAutonRedGSide extends LinearOpMode {
         robot.colorSensor.enableLed(false);
         sleep(1000);
         DriveToMark1();
-        Turn90(.8);
+        Turn90(.6);
         encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT,27, 27, MoveTimeout);
+        robot.liftMotor.setPower(-.3);
+        sleep(500);
+        robot.liftMotor.setPower(0);
         robot.gripServo1.setPosition(.39);
         robot.gripServo2.setPosition(.55);
         encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -5,-5,MoveTimeout);
@@ -196,7 +197,7 @@ public class ATeamAutonRedGSide extends LinearOpMode {
         robot.gripServo2.setPosition(.05);
         sleep(1000);
         robot.liftMotor.setPower(1);
-        sleep(1000);
+        sleep(300);
         robot.liftMotor.setPower(0);
         SetArm(ArmDownPos);
         sleep(1000);

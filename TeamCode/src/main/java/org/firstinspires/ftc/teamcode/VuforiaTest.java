@@ -63,7 +63,7 @@ public class VuforiaTest extends LinearOpMode {
 
         VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
-        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+        relicTemplate.setName("relicVuMarkTemplate"); //can help in debugging; otherwise not necessary
 
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
@@ -108,6 +108,9 @@ public class VuforiaTest extends LinearOpMode {
                 sleep(1000);
                 DriveToMark1(distanceToCenterBox);
                 Turn30(-3);
+                robot.liftMotor.setPower(-.3);
+                sleep(500);
+                robot.liftMotor.setPower(0);
                 encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
                 robot.gripServo1.setPosition(.39);
                 robot.gripServo2.setPosition(.55);
@@ -123,6 +126,9 @@ public class VuforiaTest extends LinearOpMode {
                 sleep(1000);
                 DriveToMark1(distanceToCenterBox - 5);
                 Turn30(-3);
+                robot.liftMotor.setPower(-.3);
+                sleep(500);
+                robot.liftMotor.setPower(0);
                 encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
                 robot.gripServo1.setPosition(.39);
                 robot.gripServo2.setPosition(.55);
@@ -138,6 +144,9 @@ public class VuforiaTest extends LinearOpMode {
                 sleep(1000);
                 DriveToMark1(distanceToCenterBox + 5);
                 Turn30(-3);
+                robot.liftMotor.setPower(-.3);
+                sleep(500);
+                robot.liftMotor.setPower(0);
                 encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
                 robot.gripServo1.setPosition(.39);
                 robot.gripServo2.setPosition(.55);

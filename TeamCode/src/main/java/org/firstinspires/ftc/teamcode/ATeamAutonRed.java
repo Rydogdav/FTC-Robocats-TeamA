@@ -47,13 +47,15 @@ public class ATeamAutonRed extends LinearOpMode {
 
         waitForStart();
 
-        //encoderDrive(DRIVE_SPEED, 18, 18, 1);       //(Left Wheel Distance (IN.), Right-Wheel Distance, Timeout (Sec))
         robot.colorSensor.enableLed(true);
         KnockJewel();
         robot.colorSensor.enableLed(false);
         sleep(1000);
         DriveToMark1();
         Turn30(2.5);
+        robot.liftMotor.setPower(-.3);
+        sleep(500);
+        robot.liftMotor.setPower(0);
         encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 14, 14, MoveTimeout);
         sleep(1000);
         robot.gripServo1.setPosition(.39);
@@ -124,7 +126,7 @@ public class ATeamAutonRed extends LinearOpMode {
         robot.gripServo2.setPosition(.05);
         sleep(1000);
         robot.liftMotor.setPower(1);
-        sleep(1000);
+        sleep(300);
         robot.liftMotor.setPower(0);
         SetArm(ArmDownPos);
         sleep(1000);

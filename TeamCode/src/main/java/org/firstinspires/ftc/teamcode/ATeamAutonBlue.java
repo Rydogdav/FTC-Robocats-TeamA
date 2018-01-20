@@ -52,11 +52,13 @@ public class ATeamAutonBlue extends LinearOpMode {
         sleep(1000);
         DriveToMark1();
         Turn90(-2.1);
+        robot.liftMotor.setPower(-.3);
+        sleep(500);
+        robot.liftMotor.setPower(0);
         encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, 6,6, 5);
         robot.gripServo1.setPosition(.39);
         robot.gripServo2.setPosition(.55);
         encoderDrive(robot.DRIVE_SPEED_LEFT, robot.DRIVE_SPEED_RIGHT, -5, -5, 5);
-//box
     }
 
     public void encoderDrive(double Lspeed,double Rspeed,  double leftInches, double rightInches, double timeoutS) {
@@ -123,7 +125,7 @@ public class ATeamAutonBlue extends LinearOpMode {
         robot.gripServo2.setPosition(.05);
         sleep(1000);
         robot.liftMotor.setPower(1);
-        sleep(1000);
+        sleep(300);
         robot.liftMotor.setPower(0);
         SetArm(ArmDownPos);
         sleep(1000);

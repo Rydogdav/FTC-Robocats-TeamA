@@ -4,10 +4,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.Range;
 
 
 @TeleOp(name="TeleOp Release", group="Linear Opmode")
@@ -17,7 +15,7 @@ public class ATeamTeleOp extends LinearOpMode {
     public double ArmUpPos = 1;
     public double ArmDownPos = 0;
     HardwareMichaelBot robot  = new HardwareMichaelBot();
- //walrus
+
 
 
     @Override
@@ -59,11 +57,11 @@ public class ATeamTeleOp extends LinearOpMode {
                 robot.relicServo.setPosition(1);
             }
 
-            if (gamepad1.b) { //opens gripper
+            if (gamepad1.b) { //opens grippers
 
                 robot.gripServo1.setPosition(.47);
                 robot.gripServo2.setPosition(.47);
-            } else if (gamepad1.a) { //closes gripper
+            } else if (gamepad1.a) { //closes grippers
 
                 robot.gripServo1.setPosition(.9);
                 robot.gripServo2.setPosition(.05);
@@ -71,7 +69,7 @@ public class ATeamTeleOp extends LinearOpMode {
 
             if (gamepad1.left_trigger > 0){
 
-                gearMultiplier = .35;
+                gearMultiplier = .2;
             }
 
             if (gamepad1.right_trigger > 0) {
